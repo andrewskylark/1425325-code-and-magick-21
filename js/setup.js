@@ -93,7 +93,7 @@ usernameInput.addEventListener(`input`, () => {
 
   if (valueLength < MIN_NAME_LENGTH) {
     usernameInput.setCustomValidity(`'Ещё ${(MIN_NAME_LENGTH - valueLength)} симв.`);
-  } else if (valueLength > MIN_NAME_LENGTH) {
+  } else if (valueLength > MAX_NAME_LENGTH) {
     usernameInput.setCustomValidity(`Удалите лишние ${(valueLength - MAX_NAME_LENGTH)} симв.`);
   } else {
     usernameInput.setCustomValidity(``);
