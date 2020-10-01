@@ -11,33 +11,33 @@ const userDialog = document.querySelector(`.setup`);
 const userDialogOpen = document.querySelector(`.setup-open`);
 const userDialogClose = document.querySelector(`.setup-close`);
 // открытие/закрытие окна выбора персонажа
-const onPopupEscPress = function (evt) {
+const onPopupEscPress = (evt) => {
   if (evt.keyCode === 27) {
     evt.preventDefault();
     closePopup();
   }
 };
-const openPopup = function () {
+const openPopup = () => {
   userDialog.classList.remove(`hidden`);
   document.addEventListener(`keydown`, onPopupEscPress);
 };
-const closePopup = function () {
+const closePopup = () => {
   userDialog.classList.add(`hidden`);
   document.addEventListener(`keydown`, onPopupEscPress);
 };
 
-userDialogOpen.addEventListener(`click`, function () {
+userDialogOpen.addEventListener(`click`, () => {
   openPopup();
 });
-userDialogOpen.addEventListener(`keydown`, function (evt) {
+userDialogOpen.addEventListener(`keydown`, (evt) => {
   if (evt.key === `Enter`) {
     openPopup();
   }
 });
-userDialogClose.addEventListener(`click`, function () {
+userDialogClose.addEventListener(`click`, () => {
   closePopup();
 });
-userDialogClose.addEventListener(`keydown`, function (evt) {
+userDialogClose.addEventListener(`keydown`, (evt) => {
   if (evt.key === `Enter`) {
     closePopup();
   }
@@ -73,7 +73,7 @@ const wizards = [
     eyesColor: EYES_COLORS[getRandom(EYES_COLORS.length)]
   }
 ];
-const renderWizard = function (wizard) {
+const renderWizard = (wizard) => {
   const wizardElement = similarWizardTemplate.cloneNode(true);
   wizardElement.querySelector(`.setup-similar-label`).textContent = wizard.name;
   wizardElement.querySelector(`.wizard-coat`).style.fill = wizard.coatColor;
@@ -88,7 +88,7 @@ similarListElement.appendChild(fragment);
 // валидация формы имени создания персонажа
 const usernameInput = document.querySelector(`.setup-user-name`);
 
-usernameInput.addEventListener(`input`, function () {
+usernameInput.addEventListener(`input`, () => {
   const valueLength = usernameInput.value.length;
 
   if (valueLength < MIN_NAME_LENGTH) {
@@ -104,15 +104,22 @@ usernameInput.addEventListener(`input`, function () {
 const setupWizard = document.querySelector(`.setup-wizard`);
 const setupPlayer = document.querySelector(`.setup-player`);
 const wizardCoat = setupWizard.querySelector(`.wizard-coat`);
-const wizardEyes = setupWizard.querySelector(`.eyes-color`);
+const wizardCoatInput = setupPlayer.querySelector(`[name="coat-color"]`);
+const wizardEyes = setupWizard.querySelector(`.wizard-eyes`);
+const wizardEyesInput = setupPlayer.querySelector(`[name="eyes-color"]`);
 const wizardFireball = document.querySelector(`.setup-fireball-wrap`);
+const wizardFireballInput = wizardFireball.querySelector(`input`);
 
-const getRandomFromArray = function (array) {
-  return array[getRandom(0, array.length - 1)];
+const getRandomFromArray = (array) => {
+  return array[getRandom(array.length - 1)];
 };
 
-wizardCoat.addEventListener(`click`, function () {
-  wizardCoat.style.fill = `getRandomFromArray(COAT_COLORS)`;
-  // wizardCoatInput.value = wizardCoat.style.fill.value;
-  // console.log(wizardCoat.style.fill);
-});
+const setWizardColors = (wizardElement, wizardInput, array, field = `fill`) => {
+  const color = getRandomFromArray(array);
+  wizardElement.style[field] = color;
+  wizardInput.value = color;
+};
+
+wizardCoat.addEventListener(`click`, () => setWizardColors(wizardCoat, wizardCoatInput, COAT_COLORS));
+wizardEyes.addEventListener(`click`, () => setWizardColors(wizardEyes, wizardEyesInput, EYES_COLORS));
+wizardFireball.addEventListener(`click`, () => setWizardColors(wizardFireball, wizardFireballInput, FIREBALL_COLORS, `backgroundColor`));
