@@ -3,17 +3,16 @@
 (() => {
   const userDialogOpen = document.querySelector(`.setup-open`);
   const userDialogClose = document.querySelector(`.setup-close`);
-  const userDialog = document.querySelector(`.setup`);
 
   let onPopupEscPress = (evt) => {
     window.util.isEscEvt(evt, closePopup);
   };
   const openPopup = () => {
-    userDialog.classList.remove(`hidden`);
+    window.consts.userDialog.classList.remove(`hidden`);
     document.addEventListener(`keydown`, onPopupEscPress);
   };
   const closePopup = () => {
-    userDialog.classList.add(`hidden`);
+    window.consts.userDialog.classList.add(`hidden`);
     document.addEventListener(`keydown`, onPopupEscPress);
   };
 
