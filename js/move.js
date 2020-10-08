@@ -1,6 +1,7 @@
 'use strict';
 (() => {
-  const dialogHandle = window.consts.userDialog.querySelector(`.upload`);
+  const userDialog = document.querySelector(`.setup`);
+  const dialogHandle = userDialog.querySelector(`.upload`);
 
   dialogHandle.addEventListener(`mousedown`, (evt) => {
     evt.preventDefault();
