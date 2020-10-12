@@ -28,8 +28,8 @@
         y: moveEvt.clientY
       };
 
-      userDialog.style.top = (userDialog.offsetTop - shift.y) + `px`;
-      userDialog.style.left = (userDialog.offsetLeft - shift.x) + `px`;
+      window.consts.userDialog.style.top = (window.consts.userDialog.offsetTop - shift.y) + `px`;
+      window.consts.userDialog.style.left = (window.consts.userDialog.offsetLeft - shift.x) + `px`;
     };
 
     const onMouseup = (upEvt) => {
