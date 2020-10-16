@@ -15,9 +15,25 @@
     const color = window.util.getRandomFromArray(array);
     wizardElement.style[field] = color;
     wizardInput.value = color;
+    window.savedColor = color;
   };
 
-  wizardCoat.addEventListener(`click`, () => setWizardColors(wizardCoat, wizardCoatInput, window.consts.COAT_COLORS));
-  wizardEyes.addEventListener(`click`, () => setWizardColors(wizardEyes, wizardEyesInput, window.consts.EYES_COLORS));
+  wizardCoat.addEventListener(`click`, () => {
+    setWizardColors(wizardCoat, wizardCoatInput, window.consts.COAT_COLORS);
+    window.onCoatChange(window.savedColor);
+  });
+  wizardEyes.addEventListener(`click`, () => {
+    setWizardColors(wizardEyes, wizardEyesInput, window.consts.EYES_COLORS);
+    window.onEyesChange(window.savedColor);
+  });
   wizardFireball.addEventListener(`click`, () => setWizardColors(wizardFireball, wizardFireballInput, FIREBALL_COLORS, `backgroundColor`));
+
+  window.colors = {
+    setCoatChangeHandler: (cb) => {
+      window.onCoatChange = cb;
+    },
+    setEyesChangeHandler: (cb) => {
+      window.onEyesChange = cb;
+    }
+  };
 })();
