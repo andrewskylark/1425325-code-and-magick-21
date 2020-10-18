@@ -36,13 +36,22 @@
     }));
   };
 
-  window.colors.setCoatChangeHandler((color) => {
-    coatColor = color;
-    window.debounce(updateWizards);
-  });
-  window.colors.setEyesChangeHandler((color) => {
+  // window.colors.setCoatChangeHandler((color) => {
+  //   coatColor = color;
+  //   window.debounce(updateWizards);
+  // });
+  // window.colors.setEyesChangeHandler((color) => {
+  //   eyesColor = color;
+  //   window.debounce(updateWizards);
+  // });
+  window.colors.setEyesChangeHandler = window.debounce(function (color) {
     eyesColor = color;
-    window.debounce(updateWizards);
+    updateWizards();
+  });
+
+  window.colors.setCoatChangeHandler = window.debounce(function (color) {
+    coatColor = color;
+    updateWizards();
   });
 
   const successHandler = (data) => {
