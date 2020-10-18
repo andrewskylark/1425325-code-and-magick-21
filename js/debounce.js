@@ -13,18 +13,18 @@
 // Файл debounce.js
 
 (function () {
-  let DEBOUNCE_INTERVAL = 300; // ms
+  let DEBOUNCE_INTERVAL = 500; // ms
 
   window.debounce = function (cb) {
     let lastTimeout = null;
 
-    return function () {
-      let parameters = arguments;
+    return function (...args) {
+      // let parameters = arguments;
       if (lastTimeout) {
         window.clearTimeout(lastTimeout);
       }
       lastTimeout = window.setTimeout(function () {
-        cb.apply(null, parameters);
+        cb.apply(null, [...args]);
       }, DEBOUNCE_INTERVAL);
     };
   };
